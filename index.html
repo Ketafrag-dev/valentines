@@ -242,6 +242,11 @@ function fireworks(){
     setTimeout(()=>f.remove(),1000);
   },300);
 }
+function playMusic(){
+  const music = document.getElementById("bgMusic");
+  music.volume = 0.35; // soft & romantic
+  music.play().catch(()=>{});
+}
 </script>
 <audio id="bgMusic" loop>
   <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_8f7a1a6f99.mp3" type="audio/mpeg">
@@ -249,3 +254,4 @@ function fireworks(){
 </body>
 
 </html>
+
