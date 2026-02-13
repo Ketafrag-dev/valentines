@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adiba 💖</title>
+<title>For Adiba 💖</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&family=Pacifico&display=swap" rel="stylesheet">
 
@@ -11,25 +11,32 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{
   font-family:'Poppins',sans-serif;
-  min-height:100vh;
+  height:100vh;
   overflow:hidden;
-  background:linear-gradient(135deg,#ff4e8d,#ff2f6e,#8b2cff);
   display:flex;
   justify-content:center;
   align-items:center;
+  text-align:center;
+  background:linear-gradient(-45deg,#ff4e8d,#ff2f6e,#8b2cff,#ff7ac6);
+  background-size:400% 400%;
+  animation:gradientMove 10s ease infinite;
   color:#fff;
 }
+@keyframes gradientMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
 
-/* Floating hearts */
+/* Floating Hearts */
 .hearts span{
   position:fixed;
   bottom:-10%;
-  font-size:20px;
   animation:floatUp linear infinite;
-  opacity:.7;
+  opacity:.8;
 }
 @keyframes floatUp{
-  to{transform:translateY(-120vh) scale(1.5);opacity:0}
+  to{transform:translateY(-120vh);opacity:0}
 }
 
 /* Sparkles */
@@ -38,27 +45,26 @@ body{
   width:4px;height:4px;
   background:white;
   border-radius:50%;
-  opacity:.8;
-  animation:sparkle 2s infinite ease-in-out;
+  animation:sparkle 2s infinite alternate;
 }
 @keyframes sparkle{
-  50%{transform:scale(2);opacity:.3}
+  from{opacity:.3;transform:scale(1)}
+  to{opacity:1;transform:scale(2)}
 }
 
-/* Container */
+/* Main container */
 .container{
-  text-align:center;
-  padding:20px;
-  max-width:420px;
+  max-width:90%;
   z-index:10;
+  padding:20px;
 }
 
-/* Main text */
+/* Heading */
 h1{
-  font-size:2.1rem;
+  font-size:1.9rem;
   font-weight:800;
-  line-height:1.3;
-  text-shadow:0 0 20px rgba(255,255,255,.8);
+  line-height:1.4;
+  text-shadow:0 0 15px #fff,0 0 30px #ff7ac6;
   animation:pulse 2s infinite;
 }
 @keyframes pulse{
@@ -71,12 +77,13 @@ h1{
   display:flex;
   justify-content:center;
   gap:20px;
+  flex-wrap:wrap;
 }
 button{
-  padding:15px 30px;
-  font-size:1.1rem;
+  padding:14px 28px;
+  font-size:1rem;
   border:none;
-  border-radius:50px;
+  border-radius:40px;
   cursor:pointer;
   transition:.3s;
   font-weight:700;
@@ -91,54 +98,55 @@ button{
 .no{
   background:#222;
   color:#fff;
-  position:relative;
+  position:absolute;
 }
 
-/* Celebration */
-.celebration{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:5;
-}
+/* Fireworks */
 .firework{
-  position:absolute;
+  position:fixed;
   width:6px;height:6px;
-  background:yellow;
   border-radius:50%;
+  background:yellow;
   animation:explode 1s ease-out forwards;
 }
 @keyframes explode{
-  to{transform:scale(20);opacity:0}
+  to{transform:scale(18);opacity:0}
 }
 
-/* Dancing GIFs */
-.gifs img{
-  width:120px;
-  margin:10px;
-}
-
-/* Heart rain */
-.rain span{
+/* Heart Rain */
+.rain{
   position:fixed;
-  top:-5%;
-  font-size:24px;
-  animation:rain 3s linear infinite;
+  top:-10%;
+  animation:rain 3s linear forwards;
 }
 @keyframes rain{
   to{transform:translateY(110vh);opacity:0}
 }
+
+/* Graffiti doodle */
+.doodle{
+  position:fixed;
+  font-size:24px;
+  animation:pop 1s ease forwards;
+}
+@keyframes pop{
+  from{transform:scale(0)}
+  to{transform:scale(1)}
+}
+
+/* GIF */
+.gif img{
+  width:160px;
+  margin-top:20px;
+}
 </style>
 </head>
-
 <body>
 
 <div class="hearts"></div>
-<div class="celebration"></div>
 
 <div class="container" id="content">
   <h1>Adiba, do you want to know something special?</h1>
-
   <div class="buttons">
     <button class="yes" onclick="nextStep()">YES 💖</button>
     <button class="no" id="noBtn">NO 😜</button>
@@ -146,22 +154,23 @@ button{
 </div>
 
 <script>
+const heartTypes=["❤️","💖","💕","💞","💓"];
+const hearts=document.querySelector(".hearts");
+
 /* Floating hearts */
-const heartTypes=["❤️","💖","💘","💝","💕","💞","💓"];
-const hearts=document.querySelector('.hearts');
 setInterval(()=>{
-  const h=document.createElement('span');
+  const h=document.createElement("span");
   h.innerText=heartTypes[Math.floor(Math.random()*heartTypes.length)];
   h.style.left=Math.random()*100+"%";
-  h.style.fontSize=20+Math.random()*30+"px";
-  h.style.animationDuration=4+Math.random()*4+"s";
+  h.style.fontSize=(20+Math.random()*25)+"px";
+  h.style.animationDuration=(4+Math.random()*3)+"s";
   hearts.appendChild(h);
-  setTimeout(()=>h.remove(),8000);
+  setTimeout(()=>h.remove(),7000);
 },300);
 
 /* Sparkles */
-for(let i=0;i<30;i++){
-  const s=document.createElement('div');
+for(let i=0;i<25;i++){
+  const s=document.createElement("div");
   s.className="sparkle";
   s.style.left=Math.random()*100+"%";
   s.style.top=Math.random()*100+"%";
@@ -172,28 +181,31 @@ for(let i=0;i<30;i++){
 /* NO button escape */
 const noBtn=document.getElementById("noBtn");
 function moveNo(){
-  noBtn.style.position="absolute";
   noBtn.style.left=Math.random()*70+"%";
   noBtn.style.top=Math.random()*70+"%";
 }
 noBtn.addEventListener("mouseover",moveNo);
 noBtn.addEventListener("touchstart",moveNo);
 
-/* Story steps */
+/* Steps */
 const steps=[
 "I know you don’t open up easily. And I respect that about you.",
 "I just wanted to be honest with you.",
-"I can imagine something calm and meaningful with you. Because whenever I talk with you, I feel peace inside my heart. I can't count the times how it goes. And honestly, I value that more than I say. How much your family means to you, especially your brother. 😜",
-"I don’t want something complicated. I don’t want something temporary. I want something honest and loyal. And when I think about those kinds of things, I think about you.",
-"I don’t know how you see me. But I’ve started to feel something more than just friendship. I’m not saying this because I’m afraid of losing you. I’m saying this because I value you.",
+"Apnar sathe time spend korte khub valo lage 🙂",
+"I am addicted to you",
+"Ekdin kotha na bolte parle suffocated lage, Ik apnar mone hoche egula khub cheeseee, but that's how I truly feel",
+"You are the most cutest thing I ever see 😁",
+"I like your humors 😂",
+"Onek kichu bolar ache but onek boro hoye jabe 😌",
 "Whatever your answer is, I’ll respect it."
 ];
 
 let index=0;
+
 function nextStep(){
-  const c=document.getElementById("content");
+  const content=document.getElementById("content");
   if(index<steps.length){
-    c.innerHTML=`
+    content.innerHTML=`
       <h1>${steps[index]}</h1>
       <div class="nextBtn">
         <button class="yes" onclick="nextStep()">NEXT 💕</button>
@@ -209,23 +221,24 @@ function nextStep(){
 function celebrate(){
   document.getElementById("content").innerHTML=`
     <h1>💖💥💖</h1>
-    <div class="gifs">
-      <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
-      <img src="https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif">
+    <div class="gif">
+      <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
     </div>
   `;
   heartRain();
   fireworks();
+  doodles();
 }
 
-/* Heart rain */
+/* Heart Rain */
 function heartRain(){
   for(let i=0;i<50;i++){
-    const r=document.createElement('span');
-    r.innerText=heartTypes[Math.floor(Math.random()*heartTypes.length)];
+    const r=document.createElement("div");
     r.className="rain";
+    r.innerText=heartTypes[Math.floor(Math.random()*heartTypes.length)];
     r.style.left=Math.random()*100+"%";
-    r.style.animationDuration=2+Math.random()*3+"s";
+    r.style.fontSize=(20+Math.random()*25)+"px";
+    r.style.animationDuration=(2+Math.random()*3)+"s";
     document.body.appendChild(r);
     setTimeout(()=>r.remove(),5000);
   }
@@ -234,24 +247,27 @@ function heartRain(){
 /* Fireworks */
 function fireworks(){
   setInterval(()=>{
-    const f=document.createElement('div');
+    const f=document.createElement("div");
     f.className="firework";
     f.style.left=Math.random()*100+"%";
     f.style.top=Math.random()*100+"%";
-    document.querySelector('.celebration').appendChild(f);
+    document.body.appendChild(f);
     setTimeout(()=>f.remove(),1000);
   },300);
 }
-function playMusic(){
-  const music = document.getElementById("bgMusic");
-  music.volume = 0.35; // soft & romantic
-  music.play().catch(()=>{});
+
+/* Graffiti doodles */
+function doodles(){
+  for(let i=0;i<20;i++){
+    const d=document.createElement("div");
+    d.className="doodle";
+    d.innerText="💘";
+    d.style.left=Math.random()*100+"%";
+    d.style.top=Math.random()*100+"%";
+    document.body.appendChild(d);
+  }
 }
 </script>
-<audio id="bgMusic" loop>
-  <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_8f7a1a6f99.mp3" type="audio/mpeg">
-</audio>
+
 </body>
-
 </html>
-
